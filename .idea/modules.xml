@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/java-selenium-training.iml" filepath="$PROJECT_DIR$/.idea/modules/java-selenium-training.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/java-selenium-training_main.iml" filepath="$PROJECT_DIR$/.idea/modules/java-selenium-training_main.iml" group="java-selenium-training" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/java-selenium-training_test.iml" filepath="$PROJECT_DIR$/.idea/modules/java-selenium-training_test.iml" group="java-selenium-training" />
+    </modules>
+  </component>
+</project>
