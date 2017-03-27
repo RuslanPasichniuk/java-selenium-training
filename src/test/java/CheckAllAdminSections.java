@@ -16,7 +16,7 @@ public class CheckAllAdminSections {
 
     public static WebDriver browser;
     public static WebDriverWait wait;
-    String url = "http://localhost/litecart/admin";
+    String url = "http://172.22.50.10/litecart/admin";
 
 
     @BeforeClass
@@ -37,12 +37,28 @@ public class CheckAllAdminSections {
     }
     @Test
     public  void NavigateThroughSections() {
+        //Get all main options
         List<WebElement> sections = browser.findElements(By.cssSelector("#box-apps-menu li"));
-        for (WebElement section : sections){
-            wait.until(ExpectedConditions.elementToBeClickable(section));
-            section.click();
-           // String sectionText = section.getText();
-            wait.until(ExpectedConditions.titleIs("Template | My Store"));
+        //
+        for (int i =0; i < sections.size(); i++){
+
+            //wait.until(ExpectedConditions.elementToBeClickable(section));
+            //expand option
+            browser.findElements(By.cssSelector("#box-apps-menu li")).get(i).click();
+            //get sub-options
+             List<WebElement> subSections = browser.findElements(By.cssSelector("#box-apps-menu li")).get(i).findElements(By.cssSelector("li"));
+            for(int j=0; j < subSections.size(); j++)
+            {
+                //wait.until(ExpectedConditions.elementToBeClickable(subSection));
+               //clock on sub section
+                browser.findElements(By.cssSelector("#box-apps-menu li")).get(i).findElements(By.cssSelector("li")).get(j).click();
+
+                //Verify browser title
+                String subOptionText = browser.findElements(By.cssSelector("#box-apps-menu li")).get(i).findElements(By.cssSelector("li")).get(j).getText();
+                wait.until(ExpectedConditions.titleIs(subOptionText+" | My Store"));
+                //Verify Summary on WEB
+                //...
+            }
         }
     }
 
