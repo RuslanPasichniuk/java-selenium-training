@@ -8,13 +8,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 
-
 public class CheckAllAdminSections {
 
     public static WebDriver browser;
     public static WebDriverWait wait;
     String url = "http://localhost/litecart/admin";
-
 
     @BeforeClass
     public static void start() {
@@ -46,8 +44,8 @@ public class CheckAllAdminSections {
                     //clock on sub section
                     browser.findElements(By.cssSelector("#box-apps-menu .selected li")).get(j).click();
                     //Verify browser title
-                     String subOptionText = browser.findElements(By.cssSelector("#box-apps-menu li")).get(i).findElements(By.cssSelector("li")).get(j).getText();
-                     //wait.until(ExpectedConditions.titleIs(subOptionText+" | My Store"));
+                    String subOptionText = browser.findElements(By.cssSelector("#box-apps-menu li")).get(i).findElements(By.cssSelector("li")).get(j).getText();
+                    //wait.until(ExpectedConditions.titleIs(subOptionText+" | My Store"));
                     //Verify Summary on WEB
                     browser.findElement(By.tagName("h1")).getText().equals(subOptionText);
                 }
