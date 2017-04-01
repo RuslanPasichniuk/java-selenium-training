@@ -39,7 +39,7 @@ public class Task5 {
         String regularMainPrise = sectionCampains.findElement(By.className("campaign-price")).getText();
         String itemNameMain = sectionCampains.findElement(By.className("name")).getText();
         //open item page
-        browser.findElement(By.tagName("img", )).click();
+       //!!! browser.findElement(By.tagName("img", )).click();
         WebElement itemPage = browser.findElement(By.id("box-product"));
         //get info for element on itemPage
         String discountItemPrise = itemPage.findElement(By.className("regular-price")).getText();
