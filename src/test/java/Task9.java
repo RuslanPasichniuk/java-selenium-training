@@ -38,7 +38,6 @@ public class Task9 {
         @Override
         public void onException(Throwable throwable, WebDriver driver) {
             System.out.println("Exeption: "+throwable);
-
 //            File bufferFile = ((TakesScreenshot) driver). getScreenshotAs(OutputType.FILE);
 //            try {
 //                Date date = new Date();
