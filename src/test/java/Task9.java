@@ -39,13 +39,13 @@ public class Task9 {
         public void onException(Throwable throwable, WebDriver driver) {
             System.out.println("Exeption: "+throwable);
 
-            File bufferFile = ((TakesScreenshot) driver). getScreenshotAs(OutputType.FILE);
-            try {
-                Date date = new Date();
-                Files.copy(bufferFile, new File("screenshot"+date+".png"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            File bufferFile = ((TakesScreenshot) driver). getScreenshotAs(OutputType.FILE);
+//            try {
+//                Date date = new Date();
+//                Files.copy(bufferFile, new File("screenshot"+date+".png"));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
         }
     }
     @Before
