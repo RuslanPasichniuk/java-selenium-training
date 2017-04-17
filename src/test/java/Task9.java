@@ -1,3 +1,4 @@
+import com.google.common.io.Files;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.junit.*;
 import org.openqa.selenium.*;
@@ -10,8 +11,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class Task9 {
 
     EventFiringWebDriver browser;
     public static WebDriverWait wait;
-    String url = "http://localhost/litecart/admin";
+    String url = "http://litecart/admin";
 
     //inner class
     public static class EventsListener extends AbstractWebDriverEventListener{
@@ -37,14 +36,14 @@ public class Task9 {
         }
         @Override
         public void onException(Throwable throwable, WebDriver driver) {
-            System.out.println("Exeption: "+throwable);
-//            File bufferFile = ((TakesScreenshot) driver). getScreenshotAs(OutputType.FILE);
-//            try {
-//                Date date = new Date();
-//                Files.copy(bufferFile, new File("screenshot"+date+".png"));
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+            System.out.println("Exception: "+throwable);
+            File bufferFile = ((TakesScreenshot) driver). getScreenshotAs(OutputType.FILE);
+            try {
+                Date date = new Date();
+                Files.copy(bufferFile, new File("screenshot"+date+".png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
     @Before
@@ -67,7 +66,13 @@ public class Task9 {
             //expand option
             browser.findElements(By.cssSelector("#app-")).get(i).click();
             //get sub-options
-            List<WebElement> subSections = browser.findElements(By.cssSelector("#box-apps-menu .selected li"));
+            List<WebElement> subSections = browser.findElements(By.cssSelector("#box-apps-menu .selected lih"));
+            //Check DOM: throw NoSuchElementException if query was changed in DOM
+            List<WebElement> childTags = browser.findElements(By.cssSelector(".selected>*"));//(By.xpath("./child()"));
+            if (subSections.size()==0 && childTags.size()>2){
+                throw new NoSuchElementException("DOM tree was changed, please update your locators");
+            }
+            //open all sub-options if exist
             if (subSections.size() > 1) {
                 for (int j = 0; j < subSections.size(); j++) {
                     //clock on sub section
