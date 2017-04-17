@@ -17,7 +17,7 @@ public class Task7 {
     private WebDriver browser;
     private WebDriverWait wait;
     String url = "http://localhost/litecart";
-    int repeats = 5;
+    int repeats = 2;
 
     @Before
     public void start() {
@@ -80,7 +80,7 @@ public class Task7 {
             browser.findElement(removeItemBtn).click();
             int j = countProductsInCard - 1;
 //           wait.until((WebDriver d) -> d.findElements(orderItem).size() == j);
-            wait.until(ExpectedConditions.numberOfElementsToBe(orderItem, j));
+//            wait.until(ExpectedConditions.numberOfElementsToBe(orderItem, j));
         }
         // wait massage for empty cart
         wait.until(ExpectedConditions.textToBePresentInElement(emptyMessage, "There are no items in your cart."));
