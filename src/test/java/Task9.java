@@ -7,7 +7,6 @@ import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +17,7 @@ public class Task9 {
 
     EventFiringWebDriver browser;
     public static WebDriverWait wait;
-    String url = "http://litecart/admin";
+    String url = "http://172.22.50.10/litecart/admin/";
 
     //inner class
     public static class EventsListener extends AbstractWebDriverEventListener{
@@ -66,12 +65,12 @@ public class Task9 {
             //expand option
             browser.findElements(By.cssSelector("#app-")).get(i).click();
             //get sub-options
-            List<WebElement> subSections = browser.findElements(By.cssSelector("#box-apps-menu .selected lih"));
+            List<WebElement> subSections = browser.findElements(By.cssSelector("#box-apps-menu .selected li"));
             //Check DOM: throw NoSuchElementException if query was changed in DOM
-            List<WebElement> childTags = browser.findElements(By.cssSelector(".selected>*"));//(By.xpath("./child()"));
-            if (subSections.size()==0 && childTags.size()>2){
-                throw new NoSuchElementException("DOM tree was changed, please update your locators");
-            }
+//            List<WebElement> childTags = browser.findElements(By.cssSelector(".selected>*"));//(By.xpath("./child()"));
+//            if (subSections.size()==0 && childTags.size()>2){
+//                throw new NoSuchElementException("DOM tree was changed, please update your locators");
+//            }
             //open all sub-options if exist
             if (subSections.size() > 1) {
                 for (int j = 0; j < subSections.size(); j++) {
