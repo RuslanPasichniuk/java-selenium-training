@@ -2,10 +2,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
@@ -51,14 +53,13 @@ public class Task8 {
             for(String tab : browser.getWindowHandles()){
                 if (!tab.equals(parentHandle)){
                     browser.switchTo().window(tab);
+                    //were added waits
+                    wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+                    waitForLoad(browser);
                     browser.close();
                     browser.switchTo().window(parentHandle);
                 }
             }
-            //Actions action = new Actions(browser);
-            //ArrayList tabsId = new ArrayList<String> (browser.getWindowHandles());
-            //action.keyDown(Keys.CONTROL).sendKeys("w").keyUp(Keys.CONTROL).perform();
-            //browser.element.send_keys(:control, 'A')
         }
 
     }
@@ -78,5 +79,16 @@ public class Task8 {
         loginForm.findElement(By.name("username")).sendKeys(user);
         loginForm.findElement(By.name("password")).sendKeys(pass);
         loginForm.findElement(By.name("login")).click();
+    }
+
+    public void waitForLoad(WebDriver browser) {
+        ExpectedCondition<Boolean> pageLoadCondition = new
+                ExpectedCondition<Boolean>() {
+                    public Boolean apply(WebDriver driver) {
+                        return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
+                    }
+                };
+        WebDriverWait wait = new WebDriverWait(browser, 30);
+        wait.until(pageLoadCondition);
     }
 }
