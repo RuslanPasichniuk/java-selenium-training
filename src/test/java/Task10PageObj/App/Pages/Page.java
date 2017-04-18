@@ -9,9 +9,9 @@ public class Page {
     WebDriver browser;
     WebDriverWait wait;
 
-    public Page(WebDriver browser, WebDriverWait wait){
+    public Page(WebDriver browser){
         this.browser = browser;
-        this.wait = wait;
+        wait = new WebDriverWait(browser, 5);
     }
 
     boolean areElementsPresent(By element){

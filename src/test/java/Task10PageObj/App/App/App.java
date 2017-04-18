@@ -28,27 +28,26 @@ public class App {
         wait = new WebDriverWait(browser, 10);
         browser.navigate().to(url);
 
-        page = new Page(browser, wait);
-        mainPage = new MainPage(browser, wait);
-        goodsPage = new GoodsPage(browser, wait);
-        cartPage = new CartPage(browser, wait);
+        page = new Page(browser);
+        mainPage = new MainPage(browser);
+        goodsPage = new GoodsPage(browser);
+        cartPage = new CartPage(browser);
     }
 
-    public void gotoGoods(){
-        mainPage.gotoGoods();
-    }
     public void addGoodsToCart(){
+        mainPage.gotoGoods();
         goodsPage.addGoodsToCart();
     }
-    public void gotoCart(){
-        mainPage.gotoCart();
+
+    public void checkTheNumbersOfItemsInTheCart (int numbersOfGoods){
+        goodsPage.waitForNewItemInCart(numbersOfGoods);
     }
+
     public void removeAllGoods(){
+        mainPage.gotoCart();
         cartPage.removeAllGoods();
     }
-    public void verifyItemsInCart(String items){
-        mainPage.verifyCartSize(items);
-    }
+    public void verifyItemsInCart(String items){ mainPage.verifyCartSize(items); }
 
     public void stop(){
         browser.quit();

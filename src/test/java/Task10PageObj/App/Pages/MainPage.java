@@ -36,10 +36,9 @@ public class MainPage {
     By removeItemBtn = By.cssSelector("button[name=remove_cart_item]");
     By quantity = By.cssSelector(".quantity");
 
-    public MainPage(WebDriver browser, WebDriverWait wait) {
+    public MainPage(WebDriver browser) {
         this.browser = browser;
-        this.wait = wait;
-       // PageFactory.initElements(browser, this);
+        wait = new WebDriverWait(browser, 5);
     }
 
     public void open(){
@@ -50,6 +49,7 @@ public class MainPage {
     }
 
     public void gotoGoods(){
+        open();
         //==> open product
         List<WebElement> productsList = browser.findElements(allProducts);
         productsList.get(0).click();

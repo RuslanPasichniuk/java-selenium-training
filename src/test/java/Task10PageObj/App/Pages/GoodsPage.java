@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -12,19 +13,15 @@ public class GoodsPage extends Page{
     WebDriver browser;
     WebDriverWait wait;
 
-    public GoodsPage(WebDriver browser, WebDriverWait wait) {
-        super(browser, wait);
+    public GoodsPage(WebDriver browser) {
+        super(browser);
         this.browser = browser;
-        this.wait = wait;
-//        PageFactory.initElements(browser, this);
+        wait = new WebDriverWait(browser, 5);
     }
 
-//    @FindBy(name="options[Size]")
-//    WebElement sizeList;
-//    @FindBy(css="button[name=add_cart_product]")
-//    WebElement addToCartBtn;
     By sizeList = By.name("options[Size]");
     By addToCartBtn = By.cssSelector("button[name=add_cart_product]");
+    By quantity = By.cssSelector(".quantity");
 
 
     public void addGoodsToCart(){
@@ -35,9 +32,11 @@ public class GoodsPage extends Page{
         }
         //==> add product to cart
         browser.findElement(addToCartBtn).click();
-        // wait until cart quantity changed
-        //wait.until(ExpectedConditions.textToBePresentInElement(quantity, Integer.toString(i)));
-
     }
+
+    public void waitForNewItemInCart(int numbersOfGoods ){
+        wait.until(ExpectedConditions.textToBePresentInElement(quantity, Integer.toString(numbersOfGoods)));
+    }
+
 
 }

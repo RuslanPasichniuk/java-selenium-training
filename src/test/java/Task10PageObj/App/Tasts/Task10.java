@@ -12,17 +12,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Task10 {
 
     App app;
-    User user;
     int repeats = 3;
-    By quantity = By.cssSelector("a>.quantity");
-    WebDriverWait wait;
 
     @Before
     public void start() {
         app = new App();
-//        user = new User();
-//        user.setUser("admin");
-//        user.setPassword("admin");
         app.start();
     }
 
@@ -30,12 +24,10 @@ public class Task10 {
     public void Task10() {
 
         for (int i = 1; i <= repeats; i++) {
-            app.gotoGoods();
             app.addGoodsToCart();
-            // wait until cart quantity changed
-            wait.until(ExpectedConditions.textToBePresentInElement(quantity, Integer.toString(i)));
+            app.checkTheNumbersOfItemsInTheCart(i);
         }
-        app.gotoCart();
+
         app.removeAllGoods();
         app.verifyItemsInCart("0");
     }
