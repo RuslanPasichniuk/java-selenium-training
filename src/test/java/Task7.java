@@ -16,8 +16,8 @@ public class Task7 {
 
     private WebDriver browser;
     private WebDriverWait wait;
-    String url = "http://localhost/litecart";
-    int repeats = 2;
+    String url = "http://172.22.50.10/litecart";
+    int repeats = 3;
 
     @Before
     public void start() {
@@ -33,23 +33,23 @@ public class Task7 {
     @Test
     public void Task7Test() {
         // some query
-        By allProducts = By.cssSelector(".image-wrapper");//By.className("product column shadow hover-light");
+        By allProducts = By.cssSelector(".image-wrapper");
         By addToCartBtn = By.cssSelector("button[name=add_cart_product]");
         By acceptCookiesBtn = By.cssSelector("button[name=accept_cookies]");
-        By homeImg = By.cssSelector("#logotype-wrapper");//("img[title='My Store']");
+        By homeImg = By.cssSelector("#logotype-wrapper");
         By sizeList = By.name("options[Size]");
         By quantity = By.cssSelector(".quantity");
         By cartLink = By.cssSelector("#cart-wrapper .link");
         By removeItemBtn = By.cssSelector("button[name=remove_cart_item]");
-        By emptyMessage = By.cssSelector("#checkout-cart-wrapper em");
         By orderItem = By.cssSelector("#checkout-summary-wrapper tr .sku");
+        By emptyMessage = By.cssSelector("#checkout-cart-wrapper em");
+
 
         // add few products to the cart
-        for (int i = 0; i < repeats; i++) {
+        for (int i = 1; i <= repeats; i++) {
 
-            //==> open home page
+            //==> open home page and wait it
             browser.findElement(homeImg).click();
-            // wait home page
             wait.until(ExpectedConditions.elementToBeClickable(acceptCookiesBtn));
 
             //==> open product
@@ -63,34 +63,27 @@ public class Task7 {
                 Select list = new Select(browser.findElement(sizeList));
                 list.selectByIndex(1);
             }
-
             //==> add product to cart
             browser.findElement(addToCartBtn).click();
-            // wait until cart quantity changed
             wait.until(ExpectedConditions.textToBePresentInElement(quantity, Integer.toString(i)));
         }
-        //==> goto cart
+        //==> remove all goods from cart
         browser.findElement(cartLink).click();
-        // wait for new page
         wait.until(ExpectedConditions.visibilityOfElementLocated(removeItemBtn));
 
-        //remove all products from card
-        int countProductsInCard = browser.findElements(orderItem).size();
-        for (int i = 1; i < countProductsInCard; i++) {
+        while (areElementsPresent(orderItem)){
             browser.findElement(removeItemBtn).click();
-            int j = countProductsInCard - 1;
-//           wait.until((WebDriver d) -> d.findElements(orderItem).size() == j);
-//            wait.until(ExpectedConditions.numberOfElementsToBe(orderItem, j));
+            wait.until(ExpectedConditions.stalenessOf(browser.findElement(orderItem)));
         }
-        // wait massage for empty cart
+
+        // wait for info massage
         wait.until(ExpectedConditions.textToBePresentInElement(emptyMessage, "There are no items in your cart."));
-        //==> goto home page
+
+        //verify cart is empty, from home page
         browser.findElement(homeImg).click();
-        //==> verify cart size is 0
         String itemsInCart = browser.findElement(quantity).getText();
         assertTrue("Cart is not empty", itemsInCart.equals("0"));
     }
-
     @After
     public void stop() {
         browser.quit();
