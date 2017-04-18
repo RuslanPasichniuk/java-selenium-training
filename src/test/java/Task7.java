@@ -16,7 +16,7 @@ public class Task7 {
 
     private WebDriver browser;
     private WebDriverWait wait;
-    String url = "http://172.22.50.10/litecart";
+    String url = "http://localhost/litecart";
     int repeats = 3;
 
     @Before
@@ -44,10 +44,8 @@ public class Task7 {
         By orderItem = By.cssSelector("#checkout-summary-wrapper tr .sku");
         By emptyMessage = By.cssSelector("#checkout-cart-wrapper em");
 
-
         // add few products to the cart
         for (int i = 1; i <= repeats; i++) {
-
             //==> open home page and wait it
             browser.findElement(homeImg).click();
             wait.until(ExpectedConditions.elementToBeClickable(acceptCookiesBtn));
@@ -67,6 +65,7 @@ public class Task7 {
             browser.findElement(addToCartBtn).click();
             wait.until(ExpectedConditions.textToBePresentInElement(quantity, Integer.toString(i)));
         }
+
         //==> remove all goods from cart
         browser.findElement(cartLink).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(removeItemBtn));
