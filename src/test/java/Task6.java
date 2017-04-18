@@ -24,7 +24,7 @@ public class Task6 {
 
     private WebDriver browser;
     private WebDriverWait wait;
-    String url = "http://localhost/litecart/admin";
+    String url = "http://172.22.50.10/litecart/admin";
 
     @Before
     public void start() {
@@ -41,7 +41,7 @@ public class Task6 {
     @Test
     public void addNewItem() {
         //values:
-        String productName = "New Product";
+        String productName = "New Product11";
 
         //open Catalog section
         browser.findElements(By.cssSelector("#app-")).get(1).click();
@@ -73,9 +73,9 @@ public class Task6 {
         deliveryStatus.selectByVisibleText("3-5 days");
         Select soldOut = new Select(browser.findElement(By.name("sold_out_status_id")));
         soldOut.selectByVisibleText("Sold out");
-//        ClassLoader classLoader = getClass().getClassLoader();
-//        File file = new File(classLoader.getResource("image.png").getFile());
-//        browser.findElement(By.cssSelector("input[type=file]")).sendKeys(file.getAbsolutePath());
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource("image.png").getFile());
+        browser.findElement(By.cssSelector("input[type=file]")).sendKeys(file.getAbsolutePath());
         dateFields.get(0).sendKeys("01042017");
         dateFields.get(1).sendKeys("01042017");
         //===========================fill fields on Info page
@@ -96,6 +96,7 @@ public class Task6 {
 
         textFields0nInfo.get(4).sendKeys("title bla-bla-bla");
         textFields0nInfo.get(5).sendKeys("meta description bla-bla-bl");
+
         //===========================fill fields on Prices page
         browser.findElements(By.cssSelector(".index a")).get(3).click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.name("gross_prices[USD]")));
